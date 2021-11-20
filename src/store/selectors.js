@@ -1,5 +1,5 @@
 import { RootStore } from "./store";
 
-export const getBooks = (state: RootStore) => state.books;
+export const getCategories = (state) => state.categories;
 
-export const getFilms = (state: RootStore) => state.films;
+export const getGoods = (state) => state.goods;
