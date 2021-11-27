@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
-
 import 'antd/dist/antd.css';
 import { useSelector } from 'react-redux';
 import { Selectors } from '../../store';
@@ -16,7 +15,7 @@ export const NavBar = () => {
   return (
     <Menu mode="inline" openKeys={openKeys} style={{ width: 256 }}>
       {categories.map((item) => {
-       return <Menu.Item key={item.id}><Link to="/SecPage" key={item.id}>{item.name}</Link></Menu.Item>
+       return <Menu.Item key={item.id}><Link  to={item.type} key={item.id}>{item.name}</Link></Menu.Item>
       })}
     
     </Menu>

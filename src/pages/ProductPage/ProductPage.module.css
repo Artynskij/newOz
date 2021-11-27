@@ -1,0 +1,19 @@
+.test {
+    color: green;
+}
+.container {
+    width: 100vw;
+    padding: 15px;
+display: flex;
+}
+.container_img {
+    height: 400px;
+    width: 600px;
+}
+.img {
+    height: 100%;
+    width: 100%;
+}
+.container_discription {
+padding: 15px;
+}

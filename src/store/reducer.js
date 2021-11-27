@@ -1,4 +1,4 @@
-// import { Action } from "redux";
+
 
 import { createStore } from "redux";
 
@@ -16,55 +16,59 @@ const INITIAL_STATE = {
         name: "Книги",
     },
     {
-        id: 4,
+        id: 3,
         type: "Sport",
         name: "Спорт",
     },
     {
-        id: 5,
+        id: 4,
         type: "Cosmo",
         name: "Косметика",
     },
     {
-        id: 6,
+        id: 5,
         type: "Active",
         name: "Активность",
     },
     {
-        id: 7,
+        id: 6,
         type: "Baby",
         name: "Детям",
     },
     {
-        id: 8,
+        id: 7,
         type: "Suvenir",
         name: "Сувениры",
     },
     {
-        id: 9,
+        id: 8,
         type: "House",
         name: "Для дома",
     },
     {
-        id: 10,
+        id: 9,
         type: "Health",
         name: "Здоровье",
     },
     {
-        id: 11,
-        type: "Parfume",
+        id: 10,
+        type: "Perfume",
         name: "Парфюмерия",
     },
     {
-        id: 12,
+        id: 11,
         type: "Black market",
         name: "Чёрный рынок",
     },
 ],
  goods: [
   {
-    label: "Игрушки",
-    data: [
+    data: {
+      id: 1,
+      type: "Toys",
+      name: "Игрушки",
+  },
+    items: [
       {
         id: 1,
         category_type: "Toys",
@@ -110,8 +114,12 @@ const INITIAL_STATE = {
     ],
   },
   {
-    label: "Книги",
-    data: [
+    data: {
+      id: 2,
+      type: "Books",
+      name: "Книги",
+  },
+    items: [
       {
         id: 1,
         category_type: "Toys",
@@ -157,8 +165,12 @@ const INITIAL_STATE = {
     ],
   },
   {
-    label: "Спорт",
-    data: [
+    data:  {
+      id: 3,
+      type: "Sport",
+      name: "Спорт",
+  },
+    items: [
       {
         id: 1,
         category_type: "Toys",
@@ -204,8 +216,12 @@ const INITIAL_STATE = {
     ],
   },
   {
-    label: "Косметика",
-    data: [
+    data:{
+      id: 4,
+      type: "Cosmo",
+      name: "Косметика",
+  },
+    items: [
       {
         id: 1,
         category_type: "Toys",
@@ -251,8 +267,12 @@ const INITIAL_STATE = {
     ],
   },
   {
-    label: "Активность",
-    data: [
+    data: {
+      id: 5,
+      type: "Active",
+      name: "Активность",
+  },
+    items: [
       {
         id: 1,
         category_type: "Toys",
@@ -298,8 +318,12 @@ const INITIAL_STATE = {
     ],
   },
   {
-    label: "Детям",
-    data: [
+    data:{
+      id: 6,
+      type: "Baby",
+      name: "Детям",
+  },
+    items: [
       {
         id: 1,
         category_type: "Toys",
@@ -345,8 +369,12 @@ const INITIAL_STATE = {
     ],
   },
   {
-    label: "Сувениры",
-    data: [
+    data: {
+      id: 7,
+      type: "Suvenir",
+      name: "Сувениры",
+  },
+    items: [
       {
         id: 1,
         category_type: "Toys",
@@ -392,8 +420,12 @@ const INITIAL_STATE = {
     ],
   },
   {
-    label: "Для дома",
-    data: [
+    data:  {
+      id: 8,
+      type: "House",
+      name: "Для дома",
+  },
+    items: [
       {
         id: 1,
         category_type: "Toys",
@@ -439,8 +471,12 @@ const INITIAL_STATE = {
     ],
   },
   {
-    label: "Сувениры",
-    data: [
+    data: {
+      id: 9,
+      type: "Health",
+      name: "Здоровье",
+  },
+    items: [
       {
         id: 1,
         category_type: "Toys",
@@ -486,8 +522,12 @@ const INITIAL_STATE = {
     ],
   },
   {
-    label: "Парфюмерия",
-    data: [
+    data: {
+      id: 10,
+      type: "Perfume",
+      name: "Парфюмерия",
+  },
+    items: [
       {
         id: 1,
         category_type: "Toys",
@@ -533,8 +573,12 @@ const INITIAL_STATE = {
     ],
   },
   {
-    label: "Чёрный рынок",
-    data: [
+    data: {
+      id: 11,
+      type: "Black market",
+      name: "Чёрный рынок",
+  },
+    items: [
       {
         id: 1,
         category_type: "Black market",
@@ -583,9 +627,6 @@ const INITIAL_STATE = {
   };
 
   export const reducer = (state = INITIAL_STATE) => {
-      // switch    (action.type) {
-      //     default: 
           return state
-      // }
   }
 export const store = createStore(reducer)

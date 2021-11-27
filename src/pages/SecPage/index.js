@@ -1,1 +1,0 @@
-export { SecPage } from "./SecPage"

@@ -2,8 +2,9 @@ import React from "react";
 import { Card, Col, Row } from "antd";
 import { Selectors } from "../../store";
 import { useSelector } from "react-redux";
-import css from "./GoodsCategory.css";
-// import 'Goods.css'
+import { Link } from "react-router-dom";
+import style from "./GoodsCategory.module.css";
+
 
 const { Meta } = Card;
 
@@ -13,9 +14,11 @@ export const GoodsCategory = () => {
   const goods = useSelector(Selectors.getGoods)
   return (
     <div>
+      
       {goods.map((item) => {
         return (
           <div style={{paddingBottom:"20px"}} className="site-card-wrapper">
+            
             <h2
               style={{
                 display: "flex",
@@ -25,12 +28,14 @@ export const GoodsCategory = () => {
               }}
               className="center"
             >
-              {item.label}
+              {item.data.name}
             </h2>
             <Row gutter={16}>
-              {item.data.map((item) => {
+              {item.items.map((item) => {
                 return (
+                  
                   <Col span={4}>
+                    <Link to={`/${item.category_type}/${item.id}`}>
                     <Card
                       hoverable
                       style={{ width: "200px", paddingLeft: "15px" }}
@@ -46,6 +51,7 @@ export const GoodsCategory = () => {
                         description={"цена " + item.price}
                       />
                     </Card>
+                    </Link>
                   </Col>
                 );
               })}
@@ -53,6 +59,7 @@ export const GoodsCategory = () => {
           </div>
         );
       })}
+
     </div>
   );
 };

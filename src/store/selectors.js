@@ -1,4 +1,4 @@
-import { RootStore } from "./store";
+
 
 export const getCategories = (state) => state.categories;
 
