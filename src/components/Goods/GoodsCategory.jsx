@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Col, Row } from "antd";
 import { Selectors } from "../../store";
-import { useSelector } from "react-redux";
+import { useSelector} from "react-redux";
 import { Link } from "react-router-dom";
 import style from "./GoodsCategory.module.css";
+import { Api } from "../../api"
 
 
 const { Meta } = Card;
@@ -11,10 +12,22 @@ const { Meta } = Card;
 
 
 export const GoodsCategory = () => {
-  const goods = useSelector(Selectors.getGoods)
+  // const goods = useSelector(Selectors.getGoods)
+//   const goods1 = useSelector(Selectors.rootReducer)
+//  console.log(rootReducer);
+//  console.log(goods1);
+let [goods, set] = useState([])
+console.log(goods);
+const test = new Api()
+const promise = test.getGoods()
+promise.then(({good}) => {
+  goods: good
+    
+})
+console.log(goods);
+
   return (
     <div>
-      
       {goods.map((item) => {
         return (
           <div style={{paddingBottom:"20px"}} className="site-card-wrapper">
