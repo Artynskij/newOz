@@ -8,14 +8,18 @@ export class Api {
             if (r.ok) {
                 return r.json()
             }
-        });
+            
+        })
+       
+      
     }
     getСategories() {
         return fetch('/api/categories').then(r => {
             if (r.ok) {
                 return r.json()
             }
-        });
+        })
+        // .then((data) => {console.log(data)})
     }
-    
+   
 }

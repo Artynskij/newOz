@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Selectors } from "../../store";
+// import { Selectors } from "../../store"; ----
 import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router";
 import { useState } from "react";

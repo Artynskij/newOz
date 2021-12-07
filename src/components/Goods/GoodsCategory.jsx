@@ -16,15 +16,10 @@ export const GoodsCategory = () => {
 //   const goods1 = useSelector(Selectors.rootReducer)
 //  console.log(rootReducer);
 //  console.log(goods1);
-let [goods, set] = useState([])
-console.log(goods);
+// const [goods, set] = useState([])
 const test = new Api()
-const promise = test.getGoods()
-promise.then(({good}) => {
-  goods: good
-    
-})
-console.log(goods);
+const goods = test.getGoods().then(data => data)
+// console.log(goods);
 
   return (
     <div>

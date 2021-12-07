@@ -1,10 +1,19 @@
-import { createStore, combineReducers } from "redux";
-import { reducer } from "./reducer";
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk"
+// import { getGoodCategories } from "./selectors"; ---
+import { categoriesReducer } from "./categorySlice";
+const rootReducer = combineReducers({
+    // users: getUsers,
+    // goods: getGoodCategories,
+    categoryItems:categoriesReducer 
+
+})
 
 
-// import { reducer as counterReducer } from "./counterSlice";
-// import { reducer as usersReducer } from "./usersSlice";
-export const store = createStore(reducer)
-
+  
+  
+  export const store = createStore(rootReducer, applyMiddleware(thunk));
+  
+  
 
 
