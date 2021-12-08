@@ -13,7 +13,7 @@ export class MainPage extends React.Component {
           <Market />
         </div>
 
-        <GoodsCategory />
+        {/* <GoodsCategory /> */}
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import { CATEGORIES_ACTIONS } from "./constants";
+import { Api } from "../../api";
 // import { Categories } from "./type";
 
 export const getCategories = () => ({ type: CATEGORIES_ACTIONS.GET_CATEGORIES});
@@ -13,6 +14,7 @@ export const getCategoriesFailure = () => ({
 
 
 export const fetchCategories = () => async (dispatch) => {
+   dispatch(getCategories());
    Api.getCategories()
     .then(({categories}) => {
         dispatch(getCategoriesSuccess(categories));

@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import { Selectors } from "../../store"; -----
+import { Selectors } from "../../store";
 import { Card, Col, Row } from "antd";
 
 const { Meta } = Card;

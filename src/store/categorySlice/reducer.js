@@ -7,10 +7,11 @@ const INITIAL_STATE = {
     categories: []
 };
 
-export const categoriesReducer = (
+export const reducer = (
     state = INITIAL_STATE,
-    action
+    action 
 ) => {
+    console.log("reducer");
     switch(action.type) {
         case CATEGORIES_ACTIONS.GET_CATEGORIES: {
             return {

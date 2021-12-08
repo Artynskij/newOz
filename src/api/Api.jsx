@@ -19,7 +19,7 @@ export class Api {
                 return r.json()
             }
         })
-        // .then((data) => {console.log(data)})
+        
     }
    
 }
