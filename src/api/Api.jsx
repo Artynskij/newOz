@@ -21,5 +21,12 @@ export class Api {
         })
         
     }
+    getTest() {
+        return function () {
+            fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+           
+        }
+    }
    
 }

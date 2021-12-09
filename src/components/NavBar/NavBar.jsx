@@ -5,22 +5,27 @@ import 'antd/dist/antd.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { CategoriesSelectors } from '../../store/categorySlice';
 import { fetchCategories } from '../../store/categorySlice';
-import { rootReducer } from '../../store/store';
+import { Api } from '../../api';
+
+
 
 
 
 const Test = [1,2,3]
 export const NavBar = () => {
-
-  
+let i = []
+  const test1 = Api.getTest()
+  const test2 = test1.then(item => i = item)
+  console.log(i);
+  console.log(test2);
   const [openKeys, setOpenKeys] = React.useState(['sub1']);
-  const categories = useSelector(CategoriesSelectors.getCategories) 
-
+  const categories = useSelector(CategoriesSelectors) 
+  console.log(categories);
   const dispatch = useDispatch()
   useEffect (() => {
     dispatch(fetchCategories());
-}, [dispatch])
-console.log(categories);
+})
+
   return (
     <Menu mode="inline" openKeys={openKeys} style={{ width: 256 }}>
       {categories.map((item) => {

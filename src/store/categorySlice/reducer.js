@@ -1,4 +1,4 @@
-import { Action } from "redux";
+
 import { CATEGORIES_ACTIONS, LOAD_STATUSES } from "./constants"; 
 
 
@@ -11,7 +11,7 @@ export const reducer = (
     state = INITIAL_STATE,
     action 
 ) => {
-    console.log("reducer");
+    
     switch(action.type) {
         case CATEGORIES_ACTIONS.GET_CATEGORIES: {
             return {
