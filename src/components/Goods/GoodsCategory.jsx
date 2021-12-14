@@ -1,32 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Card, Col, Row } from "antd";
-import { Selectors } from "../../store";
-import { useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import style from "./GoodsCategory.module.css";
-import { Api } from "../../api"
-
+// import style from "./GoodsCategory.module.css";
+// import { fetchGoods, GoodsSelectors } from "../../store/goodsSlice";
+import {
+  fetchPopularGoods,
+  PopularGoodsSelectors,
+} from "../../store/popularGoodsSlice";
 
 const { Meta } = Card;
 
-
-
 export const GoodsCategory = () => {
-  // const goods = useSelector(Selectors.getGoods)
-//   const goods1 = useSelector(Selectors.rootReducer)
-//  console.log(rootReducer);
-//  console.log(goods1);
-// const [goods, set] = useState([])
-const test = new Api()
-const goods = test.getGoods().then(data => data)
-// console.log(goods);
-
+  const goods = useSelector(PopularGoodsSelectors);
+  console.log(goods);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPopularGoods());
+  }, [dispatch]);
+ 
   return (
     <div>
-      {goods.map((item) => {
+      {goods.map((category) => {
         return (
-          <div style={{paddingBottom:"20px"}} className="site-card-wrapper">
-            
+          <div style={{ paddingBottom: "20px" }} className="site-card-wrapper">
             <h2
               style={{
                 display: "flex",
@@ -36,42 +33,31 @@ const goods = test.getGoods().then(data => data)
               }}
               className="center"
             >
-              {item.data.name}
+              {category.category.label}
             </h2>
-            <Row gutter={16}>
-              {item.items.map((item) => {
-                return (
-                  
-                  <Col span={4}>
-                    <Link to={`/${item.category_type}/${item.id}`}>
-                    <Card
-                      hoverable
-                      style={{ width: "200px", paddingLeft: "15px" }}
-                      cover={
-                        <img
-                          alt="example"
-                          src={item.img}
-                        />
-                      }
-                    >
-                      <Meta
-                        title={item.name}
-                        description={"цена " + item.price}
-                      />
-                    </Card>
-                    </Link>
-                  </Col>
-                );
-              })}
-            </Row>
+               <Row gutter={20}>
+                 {category.items.map((item) => {
+                   return (
+                     <Col span={4}>
+                       <Link to={`/${category.category.id}/${item.id}`}>
+                         <Card
+                           hoverable
+                           style={{ width: "200px", marginBottom:"30px", paddingLeft: "15px" }}
+                           cover={<img alt="example" src={item.img} />}
+                         >
+                           <Meta
+                             title={item.label}
+                             description={"цена " + item.price}
+                           />
+                         </Card>
+                       </Link>
+                     </Col>
+                   );
+                 })}
+               </Row>
           </div>
         );
       })}
-
     </div>
   );
 };
-
-
-
-

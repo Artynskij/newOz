@@ -1,10 +1,10 @@
 
-import { GOODS_ACTIONS, LOAD_STATUSES } from "./constants"; 
+import { POPULAR_GOODS_ACTIONS, LOAD_STATUSES } from "./constants"; 
 
 
 const INITIAL_STATE = {
     loadStatus: LOAD_STATUSES.UNKNOWN,
-    goods: []
+    popularGoods: []
 };
 
 export const reducer = (
@@ -13,21 +13,21 @@ export const reducer = (
 ) => {
     
     switch(action.type) {
-        case GOODS_ACTIONS.GET_GOODS: {
+        case POPULAR_GOODS_ACTIONS.GET_POPULAR_GOODS: {
             return {
                 ...state,
                 loadStatus: LOAD_STATUSES.LOADING
             };
         }
 
-        case GOODS_ACTIONS.GET_GOODS_SUCCESS: {
+        case POPULAR_GOODS_ACTIONS.GET_POPULAR_GOODS_SUCCESS: {
             const { payload } = action 
             return {
-                goods: payload,
+                popularGoods: payload,
                 loadStatus: LOAD_STATUSES.LOADED
             };
         }
-        case GOODS_ACTIONS.GET_GOODS_FAILURE: {
+        case POPULAR_GOODS_ACTIONS.GET_POPULAR_GOODS_FAILURE: {
             return {
                 ...state,
                 loadStatus: LOAD_STATUSES.ERROR

@@ -1,23 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Selectors } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
 import { Card, Col, Row } from "antd";
+import {
+  fetchPopularGoods,
+  PopularGoodsSelectors,
+} from "../../store/popularGoodsSlice";
+
+
 
 const { Meta } = Card;
 
-export function CategoryPage() {
-  const [openKeys, setOpenKeys] = React.useState(["sub1"]);
 
+
+export function CategoryPage() {
+//   const [openKeys, setOpenKeys] = React.useState(["sub1"]);
 
   const navigate = useNavigate();
   const useCategories = useParams();
-  const typeCategories = useCategories.type;
-  const goods = useSelector(Selectors.getGoods);
-  const categories = goods.find((el) => el.data.type === typeCategories);
-  if(!categories) {
-    return <span>Sorry, there is no such product. Please, go <a onClick={()=>navigate(-1)}>Back</a> and  try something else. </span>
+  const id = useCategories.type;
+
+  const goods = useSelector(PopularGoodsSelectors);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPopularGoods(id));
+  }, [dispatch, id]);
+console.log(goods);
+
+  const categories = goods.find((el) => el.category.id === id);
+  if (!categories) {
+    return (
+      <span>
+        Sorry, there is no such product. Please, go{" "}
+        <a onClick={() => navigate(-1)}>Back</a> and try something else.{" "}
+      </span>
+    );
   }
   return (
     <div>
@@ -31,7 +49,7 @@ export function CategoryPage() {
           }}
           className="center"
         >
-          {categories.data.name}
+          {categories.category.label}
         </h2>
         <Row gutter={16}>
           {categories.items.map((item) => {
@@ -44,7 +62,7 @@ export function CategoryPage() {
                     cover={<img alt="example" src={item.img} />}
                   >
                     <Meta
-                      title={item.name}
+                      title={item.label}
                       description={"цена " + item.price}
                     />
                   </Card>
