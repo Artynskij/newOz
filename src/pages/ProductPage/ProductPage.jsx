@@ -5,14 +5,15 @@ import { useState } from "react";
 import { Card } from "antd";
 import style from "./ProductPage.module.css";
 import { fetchGoods, GoodsSelectors } from "../../store/goodsSlice";
+import { Header } from "../../components/Header";
+import { Api } from "../../api";
 
-const { Meta } = Card;
 
 export function ProductPage() {
   const [stateButton, setCount] = useState(false);
 
   const allGoods = useSelector(GoodsSelectors);
-
+  console.log(allGoods);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchGoods());
@@ -32,20 +33,24 @@ export function ProductPage() {
       </span>
     );
   }
+const api = new Api()
 
   const toggleColor = () => {
     if (stateButton) {
       return "grey";
     }
-    return "green";
+    return "#f07800";
   };
 
-  const checkBack = () => {
+  const checkBack = (id) => {
+    const data = {id:id}
     setCount(!stateButton);
+    api.changeCart(product, "PUT")
   };
-
+console.log(api.changeCart());
   return (
     <div>
+      <Header />
       <div className={style.container}>
         <div className={style.container_img}>
           <img className={style.img} src={product.img} alt="img" />
@@ -53,13 +58,16 @@ export function ProductPage() {
         <div className={style.container_discription}>
           <h2 className={style.product_name}>{product.label}</h2>
           <div className={style.discription_price}>{product.price} $</div>
-          <div className={style.discription_discription}>discription</div>
           <button
+            className={style.putbasket}
             onClick={checkBack}
             style={{ background: `${toggleColor()}` }}
           >
-            создать компонент
+            положить в корзину
           </button>
+          <div className={style.discription_discription}>
+            {product.description}
+          </div>
         </div>
       </div>
     </div>

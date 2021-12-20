@@ -4,10 +4,11 @@ import { MainPage } from "./pages/Main"
 import { ProductPage } from "./pages/ProductPage";
 import { CategoryPage } from "./pages/CategoryPage"
 
+
 function App() {
 
   return (
-    <div className="App">
+    <div className="App" style={{minWidth: "1000px",maxWidth: "1400px", margin:"15px"}}>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/:type" element={<CategoryPage />} />

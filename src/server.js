@@ -68,6 +68,8 @@ createServer({
       const { ids } = request.queryParams;
 
       const idsArray = ids?.split(',');
+      
+      console.log(idsArray);
 
       return schema.categories.where((category) => {
         return idsArray?.includes(category.id) ?? true

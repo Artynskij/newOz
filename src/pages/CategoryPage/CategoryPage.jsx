@@ -7,6 +7,7 @@ import {
   fetchPopularGoods,
   PopularGoodsSelectors,
 } from "../../store/popularGoodsSlice";
+import { Header } from "../../components/Header"
 
 
 
@@ -20,7 +21,6 @@ export function CategoryPage() {
   const navigate = useNavigate();
   const useCategories = useParams();
   const id = useCategories.type;
-
   const goods = useSelector(PopularGoodsSelectors);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,7 +39,8 @@ console.log(goods);
   }
   return (
     <div>
-      <div style={{ paddingBottom: "20px" }} className="site-card-wrapper">
+      <Header/>
+      <div key={categories.category.label} style={{ paddingBottom: "20px" }} className="site-card-wrapper">
         <h2
           style={{
             display: "flex",
