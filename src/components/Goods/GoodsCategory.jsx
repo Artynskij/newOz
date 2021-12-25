@@ -13,7 +13,6 @@ const { Meta } = Card;
 
 export const GoodsCategory = () => {
   const goods = useSelector(PopularGoodsSelectors);
-  console.log(goods);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPopularGoods());

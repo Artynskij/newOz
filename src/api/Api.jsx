@@ -1,13 +1,13 @@
 export class Api {
-  getGoods() {
-    return fetch("/api/goods").then((r) => {
+  getGoods(id) {
+    return fetch(`/api/goods?ids=${id}`).then((r) => {
       if (r.ok) {
         return r.json();
       }
     });
   }
   getСategories(id) {
-    return fetch("/api/categories").then((r) => {
+    return fetch(`/api/categories?${id}`).then((r) => {
       if (r.ok) {
         return r.json();
       }
@@ -20,11 +20,19 @@ export class Api {
       }
     });
   }
+  getСart() {
+    return fetch("/api/cart")
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json();
+        }
+      })
+      
+  }
   changeCart(data, method) {
     return fetch("/api/cart", {
       method: method,
-      // body: JSON.stringify(data),
-      data: data
+      body: JSON.stringify(data)
     });
   }
 }

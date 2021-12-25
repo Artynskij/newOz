@@ -13,7 +13,6 @@ export const NavBar = () => {
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
-console.log(categories);
   return (
     <Menu mode="inline" style={{ width: 256 }}>
       {categories.map((item) => {

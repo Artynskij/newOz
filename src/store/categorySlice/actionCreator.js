@@ -1,7 +1,7 @@
 import { CATEGORIES_ACTIONS } from "./constants";
 import { Api } from "../../api";
 
-export const getCategories = () => ({ type: CATEGORIES_ACTIONS.GET_CATEGORIES,});
+export const getCategories = () => ({ type: CATEGORIES_ACTIONS.GET_CATEGORIES});
 
 export const getCategoriesSuccess = (categories) => ({
   type: CATEGORIES_ACTIONS.GET_CATEGORIES_SUCCESS,

@@ -7,21 +7,28 @@ import style from "./ProductPage.module.css";
 import { fetchGoods, GoodsSelectors } from "../../store/goodsSlice";
 import { Header } from "../../components/Header";
 import { Api } from "../../api";
+import { changeBasket } from "../../store/basketSlice";
 
+export const BUTTON_STATUS = {
+  putInBasket: "Положить в корзину",
+  delFromBasket: "Удалить из корзины",
+};
 
 export function ProductPage() {
   const [stateButton, setCount] = useState(false);
 
   const allGoods = useSelector(GoodsSelectors);
-  console.log(allGoods);
+  
+  const useCategories = useParams();
+  const { type, id } = useCategories;
+  
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchGoods());
-  }, [dispatch]);
+    dispatch(fetchGoods(id));
+  }, [dispatch, id]);
   const navigate = useNavigate();
-  const useCategories = useParams();
 
-  const { type, id } = useCategories;
+  
 
   const product = allGoods.find((el) => el.id === id);
 
@@ -33,8 +40,7 @@ export function ProductPage() {
       </span>
     );
   }
-const api = new Api()
-
+ 
   const toggleColor = () => {
     if (stateButton) {
       return "grey";
@@ -42,12 +48,20 @@ const api = new Api()
     return "#f07800";
   };
 
-  const checkBack = (id) => {
-    const data = {id:id}
-    setCount(!stateButton);
-    api.changeCart(product, "PUT")
+  // const checkBack = () => {
+  //   if (stateButton) {
+  //     return setCount(!stateButton), api.changeCart(product.cart, "DELETE");
+  //   }
+  //   return setCount(!stateButton), api.changeCart(product, "PUT");
+  // };
+
+  const checkBack = () => {
+    if (stateButton) {
+      return setCount(!stateButton),  dispatch(changeBasket(product, BUTTON_STATUS.delFromBasket))
+    }
+    return setCount(!stateButton), dispatch(changeBasket(product, BUTTON_STATUS.putInBasket));
   };
-console.log(api.changeCart());
+
   return (
     <div>
       <Header />

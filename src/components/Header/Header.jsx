@@ -2,13 +2,15 @@ import styles from "./styles.module.css";
 import { Input } from "antd";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
+import { Basket } from "../Basket";
 
 const { Search } = Input;
 
 export const Header = () => {
+  
   return (
     <div className={styles.container}>
-      <Link to={'/'}>
+      <Link to={"/"}>
         <div className={styles.container_logo}>
           <img
             className={styles.logo}
@@ -32,14 +34,7 @@ export const Header = () => {
       </div>
 
       <div className={styles.container_basket}>
-        <div>
-          <div className={styles.value_basket}>0</div>
-          <img
-            className={styles.basket}
-            src="https://cdn-icons-png.flaticon.com/512/3081/3081822.png"
-            alt="basket"
-          />
-        </div>
+        <Basket />
       </div>
       <div>
         <div className={styles.container_login}>

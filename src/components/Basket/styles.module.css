@@ -1,0 +1,12 @@
+.basket {
+    height: 35px;
+    width: 40px;
+    margin-left: 10px;
+}
+.value_basket {
+    display: flex;
+    justify-content: center;
+    margin-left: 12px;
+    border: 1px solid;
+    border-radius: 30%;
+}
