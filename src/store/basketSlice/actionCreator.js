@@ -18,7 +18,7 @@ export const fetchBasket = () => async (dispatch) => {
 
   api
     .getСart()
-    .then(({carts}) => {
+    .then(({ carts }) => {
       dispatch(getBasketSuccess(carts));
     })
     .catch(() => {
@@ -27,15 +27,12 @@ export const fetchBasket = () => async (dispatch) => {
 };
 
 export const changeBasket = (data, status) => async (dispatch) => {
-  
   const api = new Api();
-  
-  
-    
-    api.changeCart(data, status)
-    .then (() => dispatch(fetchBasket()))
-    .catch (() => {
-         dispatch(getBasketFailure());
-      })
-  
+
+  api.changeCart(data, status)
+    .then(() => dispatch(fetchBasket()))
+    .catch(() => {
+      dispatch(getBasketFailure());
+    })
+
 };
