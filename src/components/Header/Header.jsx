@@ -1,13 +1,40 @@
 import styles from "./styles.module.css";
 import { Input } from "antd";
 import { Button } from "antd";
+import { Tooltip } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+
 import { Link } from "react-router-dom";
 import { Basket } from "../Basket";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBasket } from "../../store/basketSlice";
+import { useEffect, useState } from "react";
+import { fetchGoods, GoodsSelectors } from "../../store/goodsSlice";
 
 const { Search } = Input;
 
-export const Header = () => {
-  
+export const Header = (props) => {
+  const goods = useSelector(GoodsSelectors);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchGoods());
+  }, [dispatch]);
+
+  // const findNameGoods = goods.filter(good => {
+  //   good.name.toLowerCase().includes(value.toLowerCase);
+  // });
+  // console.log(findNameGoods);
+  const searchGoods = () => {};
+  const [value, setValue] = useState("");
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(fetchBasket());
+  // }, [dispatch]);
+
+  const test = () => {
+    return <div>Test</div>;
+  };
+
   return (
     <div className={styles.container}>
       <Link to={"/"}>
@@ -24,12 +51,23 @@ export const Header = () => {
         <div>
           number, Закажите звонок или напишите намПодарки на Новый год 2022
         </div>
-        <div>
-          <Search
-            placeholder="Введите название товара"
-            enterButton="Search"
-            size="large"
+
+        <div className={styles.searchGoods}>
+          <Input
+            onChange={(event) => {
+              setValue(event.target.value);
+            }}
           />
+          <Link to="/Goods">
+            <div>
+              {" "}
+              <Button icon={<SearchOutlined />} />
+            </div>
+          </Link>
+
+          {/* <Link>
+            <div>Search</div>
+          </Link> */}
         </div>
       </div>
 
@@ -39,7 +77,9 @@ export const Header = () => {
       <div>
         <div className={styles.container_login}>
           <div>
-            <Button type="primary">Войти</Button>
+            <Link to={"/login"}>
+              <Button type="primary">Войти</Button>
+            </Link>
           </div>
         </div>
       </div>

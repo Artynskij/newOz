@@ -1,6 +1,7 @@
 export class Api {
   getGoods(id) {
-    return fetch(`/api/goods?ids=${id}`).then((r) => {
+    
+    return fetch(`/api/goods?${id}`).then((r) => {
       if (r.ok) {
         return r.json();
       }

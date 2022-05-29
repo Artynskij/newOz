@@ -1,34 +1,41 @@
 .test {
   color: green;
 }
+
 .container {
   width: 100vw;
   padding: 15px;
   display: flex;
 }
+
 .container_img {
   height: 400px;
   width: 600px;
 }
+
 .img {
   height: 100%;
   width: 100%;
 }
+
 .container_discription {
   padding: 15px;
 }
+
 .discription_price {
   font-size: 20px;
   margin-top: 15px;
   margin-bottom: 15px;
 }
+
 .discription_discription {
   max-width: 500px;
   margin-top: 15px;
 }
+
 .putbasket {
-    border: 0;
-    box-shadow: inset 0 -2px 0 0 rgb(0 0 0 / 20%);
-    font-size: 15px;
-    font-weight: 700;
+  border: 2px solid black;
+  box-shadow: inset 0 -2px 0 0 rgb(0 0 0 / 20%);
+  font-size: 15px;
+  font-weight: 700;
 }

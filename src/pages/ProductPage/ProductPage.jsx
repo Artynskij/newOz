@@ -7,7 +7,9 @@ import style from "./ProductPage.module.css";
 import { fetchGoods, GoodsSelectors } from "../../store/goodsSlice";
 import { Header } from "../../components/Header";
 import { Api } from "../../api";
-import { changeBasket } from "../../store/basketSlice";
+import { changeBasket, BasketSelectors } from "../../store/basketSlice";
+import { getBasketLoadStatus } from "../../store/basketSlice/selectors";
+import { LOAD_STATUSES } from "../../store/categorySlice";
 
 export const BUTTON_STATUS = {
   putInBasket: "Положить в корзину",
@@ -15,20 +17,30 @@ export const BUTTON_STATUS = {
 };
 
 export function ProductPage() {
-  const [stateButton, setCount] = useState(false);
+  let [stateButton, setCount] = useState(true);
+  const [labelButton, setLabelButton] = useState("добавить в корзину");
 
   const allGoods = useSelector(GoodsSelectors);
-  
+
   const useCategories = useParams();
   const { type, id } = useCategories;
-  
+  const idGood = "ids=" + id;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchGoods(id));
-  }, [dispatch, id]);
+    dispatch(fetchGoods(idGood));
+  }, [dispatch, idGood]);
   const navigate = useNavigate();
+  const basketGoods = useSelector(BasketSelectors);
 
-  
+  //  function checkBasket () {
+  //   const _haveBasketGoods = basketGoods.find(el => el.id === id)
+  //   if () {
+  //    return setCount(!stateButton)
+  //   } return console.log(231);
+  //  }
+  //  checkBasket()
+
+  const cardLoadStatus = useSelector(getBasketLoadStatus);
 
   const product = allGoods.find((el) => el.id === id);
 
@@ -40,31 +52,42 @@ export function ProductPage() {
       </span>
     );
   }
- 
-  const toggleColor = () => {
-    if (stateButton) {
-      return "grey";
+  const _haveBasketGoods = basketGoods.find((el) => el.id === id);
+  console.log(basketGoods.length);
+  function haveGoods() {
+    if (_haveBasketGoods) {
+      return (stateButton = false);
     }
-    return "#f07800";
+  }
+  const toggleColor = () => {
+    haveGoods();
+    if (stateButton) {
+      return "#f07800";
+    }
+    return "grey";
   };
 
-  // const checkBack = () => {
-  //   if (stateButton) {
-  //     return setCount(!stateButton), api.changeCart(product.cart, "DELETE");
-  //   }
-  //   return setCount(!stateButton), api.changeCart(product, "PUT");
-  // };
-
+  console.log(cardLoadStatus);
   const checkBack = () => {
-    if (stateButton) {
-      return setCount(!stateButton),  dispatch(changeBasket(product, BUTTON_STATUS.delFromBasket))
+    if (!stateButton) {
+      return (
+        console.log("click DEL"),
+        setLabelButton("добавить в корзину"),
+        setCount(!stateButton),
+        dispatch(changeBasket(product, "DELETE"))
+      );
     }
-    return setCount(!stateButton), dispatch(changeBasket(product, BUTTON_STATUS.putInBasket));
+    return (
+      console.log("click PUT"),
+      setLabelButton("удалить из корзины"),
+      setCount(!stateButton),
+      dispatch(changeBasket(product, "PUT"))
+    );
   };
 
   return (
     <div>
-      <Header />
+      <Header goodsId={id} />
       <div className={style.container}>
         <div className={style.container_img}>
           <img className={style.img} src={product.img} alt="img" />
@@ -73,11 +96,12 @@ export function ProductPage() {
           <h2 className={style.product_name}>{product.label}</h2>
           <div className={style.discription_price}>{product.price} $</div>
           <button
+            disabled={cardLoadStatus !== LOAD_STATUSES.LOADED}
             className={style.putbasket}
             onClick={checkBack}
             style={{ background: `${toggleColor()}` }}
           >
-            положить в корзину
+            {labelButton}
           </button>
           <div className={style.discription_discription}>
             {product.description}

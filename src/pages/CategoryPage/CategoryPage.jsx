@@ -39,15 +39,17 @@ export function CategoryPage() {
   // } else if(category) {
   // return  categories = category
   // }
-  console.log(category);
+
   const popGoodsFind = popGoods.find((el) => el.category.id === id);
   const categoryFind = category.find((el) => el.id === id);
+  
+
   if (popGoodsFind) {
     return (
       <div>
         <Header />
         <div
-          key={popGoodsFind.category.label}
+          key={popGoodsFind.category.id}
           style={{ paddingBottom: "20px" }}
           className="site-card-wrapper"
         >
@@ -65,7 +67,7 @@ export function CategoryPage() {
           <Row gutter={16}>
             {popGoodsFind.items.map((item) => {
               return (
-                <Col span={4}>
+                <Col key={item.id} span={4}>
                   <Link to={`${item.id}`}>
                     <Card
                       hoverable
@@ -92,7 +94,7 @@ export function CategoryPage() {
         {category.map((item) => {
           return (
             <div
-              key={item.label}
+              key={item.id}
               style={{ paddingBottom: "20px" }}
               className="site-card-wrapper"
             >

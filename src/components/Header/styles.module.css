@@ -34,3 +34,6 @@ min-width: 1000px;
 .container_basket {
     margin-left: 50px;
 }
+.searchGoods{
+    display: flex;
+}

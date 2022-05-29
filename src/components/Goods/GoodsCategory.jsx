@@ -13,6 +13,7 @@ const { Meta } = Card;
 
 export const GoodsCategory = () => {
   const goods = useSelector(PopularGoodsSelectors);
+ 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPopularGoods());
@@ -22,7 +23,7 @@ export const GoodsCategory = () => {
     <div>
       {goods.map((category) => {
         return (
-          <div style={{ paddingBottom: "20px" }} className="site-card-wrapper">
+          <div  key={category.category.id} style={{ paddingBottom: "20px" }} className="site-card-wrapper">
             <h2
               style={{
                 display: "flex",
@@ -37,9 +38,10 @@ export const GoodsCategory = () => {
                <Row gutter={20}>
                  {category.items.map((item) => {
                    return (
-                     <Col span={4}>
+                     <Col key={item.id}  span={4}>
                        <Link to={`/${category.category.id}/${item.id}`}>
                          <Card
+                        
                            hoverable
                            style={{ width: "200px", marginBottom:"30px", paddingLeft: "15px" }}
                            cover={<img alt="example" src={item.img} />}
