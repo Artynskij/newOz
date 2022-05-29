@@ -6,6 +6,7 @@ const prodcutSchema = yup.object().shape({
   categoryTypeId: yup.string().required(),
   description: yup.string().required(),
   id: yup.string().required(),
+  parentId: yup.string(),
   img: yup.string().required(),
   label: yup.string().required(),
   price: yup.string().required(),
@@ -31,8 +32,8 @@ createServer({
   factories: {
     good: Factory.extend({
       label: () => faker.commerce.productName(),
-      price:  () => faker.commerce.price(1, 200),
-      description:  () => faker.commerce.productDescription(),
+      price: () => faker.commerce.price(1, 200),
+      description: () => faker.commerce.productDescription(),
       img: 'https://source.unsplash.com/random',
     }),
   },
@@ -90,8 +91,8 @@ createServer({
       const categoryTypeIdsArray = categoryTypeIds?.split(',');
 
       const items = schema.goods.where((good) => {
-        const isIdMatch =  idsArray?.includes(good.id) ?? true
-        const isTypeIdMatch =  categoryTypeIdsArray?.includes(good.categoryTypeId) ?? true
+        const isIdMatch = idsArray?.includes(good.id) ?? true
+        const isTypeIdMatch = categoryTypeIdsArray?.includes(good.categoryTypeId) ?? true
 
         return isIdMatch && isTypeIdMatch;
       });
@@ -108,15 +109,18 @@ createServer({
 
     this.put('/cart', async (schema, request) => {
       try {
-        const prodcut = JSON.parse(request.requestBody) ?? {};
+        const product = JSON.parse(request.requestBody) ?? {};
 
-        const errors = await valdiateProduct(prodcut);
+        const errors = await valdiateProduct(product);
 
         if (errors.length) {
           return new Response(400, {}, errors)
         };
 
-        return schema.carts.findOrCreateBy(prodcut);
+        product.parentId = product.id;
+        product.id = null;
+
+        return schema.carts.findOrCreateBy(product);
       } catch {
         return new Response(500)
       }
@@ -124,21 +128,20 @@ createServer({
 
     this.delete('/cart', async (schema, request) => {
       try {
-        const prodcut = JSON.parse(request.requestBody) ?? {};
+        const product = JSON.parse(request.requestBody) ?? {};
 
-        const errors = await valdiateProduct(prodcut);
+        const errors = await valdiateProduct(product);
 
         if (errors.length) {
           return new Response(400, {}, errors)
         };
 
-        const prodcutDb = schema.carts.findBy(prodcut);
-
-        if (!prodcutDb) {
+        const productDb = schema.carts.findBy(product);
+        if (!productDb) {
           return new Response(400, {}, 'Продукт не в корзине')
         }
 
-        prodcutDb.destroy();
+        productDb.destroy();
 
         return new Response(200);
       } catch {

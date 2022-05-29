@@ -25,7 +25,7 @@ console.log(basketGoods);
   let goods = [];
 
   if (basketGoods.length === 0) {
-    goods = [{ label: "У вас нету товаров", id: 1 }];
+    goods = [{ label: "У вас нету товаров", id: 0 }];
   } else {
     goods = basketGoods;
   }

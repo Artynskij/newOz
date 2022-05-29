@@ -17,8 +17,8 @@ export const BUTTON_STATUS = {
 };
 
 export function ProductPage() {
-  let [stateButton, setCount] = useState(true);
-  const [labelButton, setLabelButton] = useState("добавить в корзину");
+  let [stateButton, setStateButton] = useState(true);
+  const [labelButton, setLabelButton] = useState(BUTTON_STATUS.putInBasket);
 
   const allGoods = useSelector(GoodsSelectors);
 
@@ -52,37 +52,34 @@ export function ProductPage() {
       </span>
     );
   }
-  const _haveBasketGoods = basketGoods.find((el) => el.id === id);
+
+  const _haveBasketGoods = basketGoods.find((el) => el.parentId === id);
+
   console.log(basketGoods.length);
   function haveGoods() {
     if (_haveBasketGoods) {
       return (stateButton = false);
     }
   }
+
   const toggleColor = () => {
     haveGoods();
-    if (stateButton) {
-      return "#f07800";
-    }
-    return "grey";
+    return stateButton ? "#f07800" : "grey";
   };
 
   console.log(cardLoadStatus);
+
+  const getGoodFromCart = () => basketGoods.find((el) => el.parentId === id);
+
   const checkBack = () => {
-    if (!stateButton) {
-      return (
-        console.log("click DEL"),
-        setLabelButton("добавить в корзину"),
-        setCount(!stateButton),
-        dispatch(changeBasket(product, "DELETE"))
-      );
-    }
-    return (
-      console.log("click PUT"),
-      setLabelButton("удалить из корзины"),
-      setCount(!stateButton),
-      dispatch(changeBasket(product, "PUT"))
-    );
+    const method = stateButton ? "PUT" : "DELETE";
+    const buttonTitle = stateButton ? BUTTON_STATUS.delFromBasket : BUTTON_STATUS.putInBasket;
+
+    setLabelButton(buttonTitle);
+    setStateButton(!stateButton);
+
+    const cartGood = stateButton ? product : getGoodFromCart();
+    dispatch(changeBasket(cartGood, method));
   };
 
   return (
